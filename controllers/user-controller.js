@@ -60,7 +60,8 @@ const userController = {
             as: 'Followers',
             attributes: ['id', 'image']
           },
-          { model: Restaurant, as: 'FavoritedRestaurants' }
+          { model: Restaurant, as: 'FavoritedRestaurants' },
+          { model: Restaurant, as: 'LikedRestaurants' }
         ]
       }),
       Comment.findAll({
@@ -80,7 +81,6 @@ const userController = {
     ])
       .then(([user, comments]) => {
         if (!user) throw new Error("User didn't exist!")
-        console.log(user.FavoritedRestaurants)
         res.render('users/profile', { user: { ...user.toJSON() }, comments })
       })
       .catch(err => next(err))

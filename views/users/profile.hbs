@@ -63,13 +63,27 @@
     {{!-- 已收藏餐廳 --}}
     <div class="card mb-3">
       <div class="card-header">
-        {{user.FavoritedRestaurants.length}} 已評論餐廳
+        {{user.FavoritedRestaurants.length}} 已收藏餐廳
       </div>
       <div class="row g-0 p-3">
         {{#each user.FavoritedRestaurants}}
         <div class="col-md-auto px-2">
-          <a href="/restaurants/{{this.id}}"><img src="{{this.image}}"
-              class="img-fluid rounded-start" style="height: 50px; width: 50px;"></a>
+          <a href="/restaurants/{{this.id}}"><img src="{{this.image}}" class="img-fluid rounded-start"
+              style="height: 50px; width: 50px;"></a>
+        </div>
+        {{/each}}
+      </div>
+    </div>
+    {{!-- 已案讚餐廳 --}}
+    <div class="card mb-3">
+      <div class="card-header">
+        {{user.LikedRestaurants.length}} 已按讚餐廳
+      </div>
+      <div class="row g-0 p-3">
+        {{#each user.LikedRestaurants}}
+        <div class="col-md-auto px-2">
+          <a href="/restaurants/{{this.id}}"><img src="{{this.image}}" class="img-fluid rounded-start"
+              style="height: 50px; width: 50px;"></a>
         </div>
         {{/each}}
       </div>
