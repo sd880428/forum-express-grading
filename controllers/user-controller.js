@@ -48,7 +48,21 @@ const userController = {
     }
     return Promise.all([
       User.findByPk(id, {
-        raw: true
+        nest: true,
+        include: [
+          {
+            model: User,
+            as: 'Followings',
+            attributes: ['id', 'image']
+          },
+          {
+            model: User,
+            as: 'Followers',
+            attributes: ['id', 'image']
+          },
+          { model: Restaurant, as: 'FavoritedRestaurants' },
+          { model: Restaurant, as: 'LikedRestaurants' }
+        ]
       }),
       Comment.findAll({
         attributes: [[Sequelize.fn('DISTINCT', Sequelize.col('restaurant_id')), 'restaurantId']],
@@ -67,7 +81,7 @@ const userController = {
     ])
       .then(([user, comments]) => {
         if (!user) throw new Error("User didn't exist!")
-        res.render('users/profile', { user, comments })
+        res.render('users/profile', { user: { ...user.toJSON() }, comments })
       })
       .catch(err => next(err))
   },
@@ -204,6 +218,9 @@ const userController = {
       .then(([user, followship]) => {
         if (!user) throw new Error("User didn't exist!")
         if (followship) throw new Error('You are already following this user!')
+        const USER = getUser(req)
+        if (user.email === USER.email) throw new Error("You can't follow youself!")
+
         return Followship.create({
           followerId: req.user.id,
           followingId: userId

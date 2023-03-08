@@ -16,16 +16,77 @@
   </div>
 </div>
 
-<div class="card mb-3">
-  <div class="card-header">
-    {{comments.length}} 已評論餐廳
-  </div>
-  <div class="row g-0 p-3">
-    {{#each comments}}
-    <div class="col-md-auto px-2">
-      <a href="/restaurants/{{this.restaurantId}}"><img src="{{this.Restaurant.image}}" class="img-fluid rounded-start"
-          style="height: 50px; width: 50px;"></a>
+<div class="row">
+  <div class="col-4">
+    {{!-- 追蹤中 --}}
+    <div class="card mb-3">
+      <div class="card-header">
+        {{user.Followings.length}} 追蹤中
+      </div>
+      <div class="row g-0 p-3">
+        {{#each user.Followings}}
+        <div class="col-md-auto px-2">
+          <img src="{{this.image}}" class="img-fluid rounded-start" style="height: 50px; width: 50px;">
+        </div>
+        {{/each}}
+      </div>
     </div>
-    {{/each}}
+    {{!-- 粉絲 --}}
+    <div class="card mb-3">
+      <div class="card-header">
+        {{user.Followers.length}} 粉絲
+      </div>
+      <div class="row g-0 p-3">
+        {{#each user.Followers}}
+        <div class="col-md-auto px-2">
+          <img src="{{this.image}}" class="img-fluid rounded-start" style="height: 50px; width: 50px;">
+        </div>
+        {{/each}}
+      </div>
+    </div>
+  </div>
+  <div class="col-8">
+    {{!-- 已評論餐廳 --}}
+    <div class="card mb-3">
+      <div class="card-header">
+        {{comments.length}} 已評論餐廳
+      </div>
+      <div class="row g-0 p-3">
+        {{#each comments}}
+        <div class="col-md-auto px-2">
+          <a href="/restaurants/{{this.restaurantId}}"><img src="{{this.Restaurant.image}}"
+              class="img-fluid rounded-start" style="height: 50px; width: 50px;"></a>
+        </div>
+        {{/each}}
+      </div>
+    </div>
+    {{!-- 已收藏餐廳 --}}
+    <div class="card mb-3">
+      <div class="card-header">
+        {{user.FavoritedRestaurants.length}} 已收藏餐廳
+      </div>
+      <div class="row g-0 p-3">
+        {{#each user.FavoritedRestaurants}}
+        <div class="col-md-auto px-2">
+          <a href="/restaurants/{{this.id}}"><img src="{{this.image}}" class="img-fluid rounded-start"
+              style="height: 50px; width: 50px;"></a>
+        </div>
+        {{/each}}
+      </div>
+    </div>
+    {{!-- 已案讚餐廳 --}}
+    <div class="card mb-3">
+      <div class="card-header">
+        {{user.LikedRestaurants.length}} 已按讚餐廳
+      </div>
+      <div class="row g-0 p-3">
+        {{#each user.LikedRestaurants}}
+        <div class="col-md-auto px-2">
+          <a href="/restaurants/{{this.id}}"><img src="{{this.image}}" class="img-fluid rounded-start"
+              style="height: 50px; width: 50px;"></a>
+        </div>
+        {{/each}}
+      </div>
+    </div>
   </div>
 </div>
