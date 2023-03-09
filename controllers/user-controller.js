@@ -219,7 +219,7 @@ const userController = {
         if (!user) throw new Error("User didn't exist!")
         if (followship) throw new Error('You are already following this user!')
         const USER = getUser(req)
-        if (user.email === USER.email) throw new Error("You can't follow youself!")
+        if (user.email === USER.email) throw new Error("You can't follow yourself!")
 
         return Followship.create({
           followerId: req.user.id,
