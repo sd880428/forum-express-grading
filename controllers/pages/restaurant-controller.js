@@ -1,5 +1,5 @@
-const { Restaurant, Category, Comment, User, Favorite } = require('../models')
-const { getOffset, getPagination } = require('../helpers/pagination-helper')
+const { Restaurant, Category, Comment, User, Favorite } = require('../../models')
+const { getOffset, getPagination } = require('../../helpers/pagination-helper')
 const sequelize = require('sequelize')
 const restaurantController = {
   getRestaurants: (req, res, next) => {
@@ -120,9 +120,8 @@ const restaurantController = {
       .catch(err => next(err))
   },
   getTopRestaurants: (req, res, next) => {
-    return Restaurant.sequelize.query('SET SESSION sql_mode = "traditional";', { raw: true })
+    return Restaurant.sequelize.query('SET SESSION sql_mode = "traditional";')
       .then(() => {
-        
         return Restaurant.findAll({
           subQuery: false,
           attributes: [
@@ -139,12 +138,13 @@ const restaurantController = {
               attributes: []
             }
           ],
-          group: ['Restaurant.id', 'Category.id', 'Category.name', 'FavoritedUsers->Favorite.id'],
+          group: ['Restaurant.id'],
           order: [[sequelize.literal('favoritedCount'), 'DESC']],
           limit: 10
         })
       })
       .then(restaurants => {
+        console.log(restaurants)
         const result = restaurants
           .map(r => ({
             ...r.toJSON(),

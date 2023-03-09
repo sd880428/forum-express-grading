@@ -1,5 +1,5 @@
 const express = require('express')
-const routes = require('./routes')
+const { pages } = require('./routes')
 const handlebars = require('express-handlebars')
 const app = express()
 const flash = require('connect-flash')
@@ -35,7 +35,7 @@ app.use('/upload', express.static(path.join(__dirname, 'upload')))
 app.use(express.static('public'))
 
 app.use(express.urlencoded({ extended: true }))// req.body
-app.use(routes)
+app.use(pages)
 
 app.listen(port, () => {
   console.info(`Example app listening on port ${port}!`)

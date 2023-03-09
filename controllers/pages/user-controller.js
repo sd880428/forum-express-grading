@@ -1,7 +1,7 @@
-const { User, Restaurant, Comment, Favorite, Like, Followship } = require('../models')
+const { User, Restaurant, Comment, Favorite, Like, Followship } = require('../../models')
 const bcrypt = require('bcryptjs')
-const { imgurFileHandler } = require('../helpers/file-helpers')
-const { getUser } = require('../helpers/auth-helpers')
+const { imgurFileHandler } = require('../../helpers/file-helpers')
+const { getUser } = require('../../helpers/auth-helpers')
 const Sequelize = require('sequelize')
 const userController = {
   singUpPage: (req, res) => {
