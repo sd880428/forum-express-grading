@@ -24,6 +24,16 @@ const adminController = {
         )
       })
       .catch(err => cb(err))
+  },
+  deleteRestaurant: async (req, cb) => {
+    try {
+      const restaurant = await Restaurant.findByPk(req.params.id)
+      if (!restaurant) throw new Error("Restaurant didn't exist!")
+      const deleteRestaurant = await restaurant.destroy()
+      cb(null, { restaurant: deleteRestaurant })
+    } catch (err) {
+      cb(err)
+    }
   }
 }
 
