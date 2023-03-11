@@ -1,5 +1,5 @@
 const { User, Restaurant, Comment, Favorite, Like, Followship } = require('../../models')
-const bcrypt = require('bcryptjs')
+const userServices = require('../../services/user-services')
 const { imgurFileHandler } = require('../../helpers/file-helpers')
 const { getUser } = require('../../helpers/auth-helpers')
 const Sequelize = require('sequelize')
@@ -8,25 +8,11 @@ const userController = {
     return res.render('signup')
   },
   signUp: (req, res, next) => {
-    const { name, email, password, passwordCheck } = req.body
-    if (password !== passwordCheck) throw new Error('密碼與確認密碼不一致!')
-
-    User.findOne({ where: { email } })
-      .then(user => {
-        if (user) throw new Error('使用者已存在!')
-
-        return bcrypt.hash(password, 10)
-      })
-      .then(hash => User.create({
-        name,
-        email,
-        password: hash
-      }))
-      .then(() => {
-        req.flash('success_messages', '註冊成功!')
-        res.redirect('/signin')
-      })
-      .catch(error => next(error))
+    userServices.signUp(req, (err, data) => {
+      if (err) return next(err)
+      req.flash('success_messages', '註冊成功!')
+      res.redirect('/signin')
+    })
   },
   signInPage: (req, res) => {
     res.render('signin')

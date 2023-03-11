@@ -1,4 +1,4 @@
-const adminServices = require('../../services/admin-controller')
+const adminServices = require('../../services/admin-services')
 
 const adminController = {
   getRestaurants: (req, res, next) => {
