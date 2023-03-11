@@ -11,18 +11,11 @@ const adminController = {
       .catch(err => next(err))
   },
   postRestaurant: (req, res, next) => {
-    const { name } = req.body
-
-    if (!name) throw new Error('Restaurant name is required!')
-
-    const { file } = req
-    return imgurFileHandler(file)
-      .then(filePath => Restaurant.create({ ...req.body, image: filePath || null }))
-      .then(() => {
-        req.flash('success_message', 'restaurant was successfully created!')
-        res.redirect('/admin/restaurants')
-      })
-      .catch(err => next(err))
+    adminServices.postRestaurant(req, (err, data) => {
+      if (err) return next(err)
+      req.flash('success_message', 'restaurant was successfully created!')
+      res.redirect('/admin/restaurants', data)
+    })
   },
   getRestaurant: (req, res, next) => {
     return Restaurant.findByPk(req.params.id, {

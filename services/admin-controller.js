@@ -1,5 +1,6 @@
 const { Restaurant, Category } = require('../models')
 const { getOffset, getPagination } = require('../helpers/pagination-helper')
+const { imgurFileHandler } = require('../helpers/file-helpers')
 
 const adminController = {
   getRestaurants: (req, cb) => {
@@ -34,6 +35,18 @@ const adminController = {
     } catch (err) {
       cb(err)
     }
+  },
+  postRestaurant: (req, cb) => {
+    const { name } = req.body
+
+    if (!name) throw new Error('Restaurant name is required!')
+
+    const { file } = req
+    return imgurFileHandler(file)
+      .then(filePath => Restaurant.create({ ...req.body, image: filePath || null }))
+      .then(createdRestaurant => cb(null, { restaurant: createdRestaurant })
+      )
+      .catch(err => cb(err))
   }
 }
 

@@ -35,6 +35,7 @@ app.use('/upload', express.static(path.join(__dirname, 'upload')))
 app.use(express.static('public'))
 
 app.use(express.urlencoded({ extended: true }))// req.body
+app.use(express.json())// json
 app.use('/api', apis)
 app.use(pages)
 
