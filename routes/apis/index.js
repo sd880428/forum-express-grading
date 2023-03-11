@@ -11,6 +11,8 @@ router.use('/admin', authenticated, authenticatedAdmin, admin)
 router.post('/signin', passport.authenticate('local', { session: false }), userController.signIn)
 router.post('/signup', userController.signUp)
 
+router.get('/users/:id', authenticated, userController.getUser)
+
 router.get('/restaurants', authenticated, restController.getRestaurants)
 
 module.exports = router

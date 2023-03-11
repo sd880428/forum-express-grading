@@ -110,7 +110,6 @@ const restaurantController = {
         })
       })
       .then(restaurants => {
-        console.log(restaurants)
         const result = restaurants
           .map(r => ({
             ...r.toJSON(),
