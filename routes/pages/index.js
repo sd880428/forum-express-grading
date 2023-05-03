@@ -18,6 +18,19 @@ router.post('/signup', userController.signUp)
 router.get('/signin', userController.signInPage)
 router.post('/signin', passport.authenticate('local', { failureRedirect: '/signin', failureFlash: true }), userController.signIn)
 
+router.get('/signin/facebook', passport.authenticate('facebook'))
+router.get('/signin/facebook/callback', passport.authenticate('facebook', { failureRedirect: '/login' }), function (req, res) {
+  // Successful authentication, redirect home.
+  res.redirect('/restaurants')
+})
+
+router.get('/signin/google', passport.authenticate('google'))
+router.get('/oauth2/redirect/google',
+  passport.authenticate('google', { failureRedirect: '/signin', failureMessage: true }),
+  function (req, res) {
+    res.redirect('/')
+  })
+
 router.get('/logout', userController.logout)
 
 router.post('/following/:userId', authenticated, userController.addFollowing)
