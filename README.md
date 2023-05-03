@@ -1,5 +1,5 @@
 # 餐廳清單
-![login](./public/img/loginPage.jpg)
+![login](./public/img/LoginPage.jpg)
 ![index](./public/img/indexPreview.jpg)
 ## 規格:
 + 程式編輯器: [Visual Studio Code](https://visualstudio.microsoft.com/zh-hant/ "Visual Studio Code") 
